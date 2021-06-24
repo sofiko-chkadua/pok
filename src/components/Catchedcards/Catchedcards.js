@@ -2,7 +2,6 @@
 import { Link } from 'react-router-dom';
 
 function Catchedcards({ catchedPokemons, handlerLoadMore}) {
-
   return (
     <>
       <ul className="cards">

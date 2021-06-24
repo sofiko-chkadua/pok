@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route, NavLink } from "react-router-do
 import PokemonPage from '../PokemonPage/PokemonPage';
 
 
+// прокинули setCatchedPokemon - это ф которая возвращает массив пойманных покемонов
 function Cards({ pokemons, catchClickHanlder, setCatchedPokemon }) {
   const [visiblePokemon, setvisiblePokemon] = useState(21)
 
@@ -12,9 +13,10 @@ function Cards({ pokemons, catchClickHanlder, setCatchedPokemon }) {
     setvisiblePokemon((prevValue) => prevValue + 21);
   }
 
-  function catchHandler(pokemon) {
-    catchClickHanlder(pokemon)
-    setCatchedPokemon(pokemon)
+  // 
+  function catchHandler(clickedpokemon) {
+    catchClickHanlder(clickedpokemon)
+    setCatchedPokemon(clickedpokemon)
   }
 
 
@@ -24,6 +26,7 @@ function Cards({ pokemons, catchClickHanlder, setCatchedPokemon }) {
       <ul className="cards">
         {pokemons.slice(0, visiblePokemon).map(pokemon => (
           <li key={pokemon.id} className="cards__item margin">
+            {/* по клику зовем покенома кликнутого*/}
             <button className="cards__button" disabled={pokemon.catched} onClick={() => catchHandler(pokemon)}>
               {
                 pokemon.catched ? 'CATCHED' : 'CATCH'

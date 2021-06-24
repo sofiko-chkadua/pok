@@ -2,12 +2,14 @@ import './PokemonPage.css';
 import { useParams } from "react-router";
 import { useEffect, useState } from 'react';
 
+// эти pokemons - это покемонс со всеми св-вами
 const PokemonPage = ({ pokemons }) => {
     const { name } = useParams();
 
     const pokemon = pokemons.find(pokemon => pokemon.name === name)
-    console.log(pokemon)
+    console.log(pokemon.data)
 
+    
     return (
         <>
             <div className="pokemonpage">
