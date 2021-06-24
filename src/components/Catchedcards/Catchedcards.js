@@ -1,8 +1,7 @@
 
 import { Link } from 'react-router-dom';
 
-function Catchedcards({ catchedPokemons }) {
-  console.log('catchedPokemons', catchedPokemons)
+function Catchedcards({ catchedPokemons, handlerLoadMore}) {
 
   return (
     <>
@@ -20,6 +19,7 @@ function Catchedcards({ catchedPokemons }) {
           </li>
         ))}
       </ul>
+      <button onClick={handlerLoadMore} className="cards__loadmore">LOAD MORE</button>
     </>
   )
 }

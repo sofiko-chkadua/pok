@@ -2,9 +2,9 @@ import './App.css';
 import Cards from './components/Cards/Cards'
 import Catchedcards from './components/Catchedcards/Catchedcards'
 import PokemonPage from './components/PokemonPage/PokemonPage';
+import Navbar from './components/Navbar/Navbar';
 import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, NavLink, Redirect } from "react-router-dom"
-import { useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 
 function App({ props }) {
   const [pokemons, setPokemon] = useState([]);
@@ -15,7 +15,7 @@ function App({ props }) {
     const newPokemons = [...pokemons]
     const clickedPokemon = newPokemons.find(p => p.name === pokemon.name)
     let dateObj = new Date();
-    let month = dateObj.getUTCMonth() + 1; //months from 1-12
+    let month = dateObj.getUTCMonth() + 1;
     let day = dateObj.getUTCDate();
     let year = dateObj.getUTCFullYear();
     let newdate = day + "/" + month + "/" + year;
@@ -30,15 +30,6 @@ function App({ props }) {
     setCatched(prev => ([...prev, pokemon]))
   }
 
-  const history = useHistory();
-
-  // useEffect(() => {
-  //   if(history) {
-  //      history.push("/Cards")
-
-  //      }
-  // }, [history])
-
 
   useEffect(() => {
     fetch("http://localhost:3000/pokemons")
@@ -47,30 +38,15 @@ function App({ props }) {
   }, [])
 
 
-  useEffect(() => {
-    if (history) history.push("/Cards")
-
-  }, [history])
-
   return (
     <>
-
-
       {<Router>
-        <nav className="navbar">
-          <ul className="navbar__list">
-            <li className="navbar__item"><NavLink className="navbar__link" to="/Cards" activeStyle={{
-              fontWeight: "bold",
-            }}>All pokemons</NavLink></li>
-            <li className="navbar__item"><NavLink className="navbar__link" to="/Catchedcards">Catched pokemons</NavLink></li>
-          </ul>
-        </nav>
+        <Navbar></Navbar>
         <Switch>
-          <Route exaxt path="/Catchedcards" render={() => <Catchedcards catchedPokemons={catched} />}></Route>
+          <Route exaxt path="/Catchedcards" render={() => <Catchedcards catchedPokemons={catched}  />}></Route>
           <Route exaxt path="/Cards" render={() => <Cards pokemons={pokemons} catchClickHanlder={addNewCatchedPokemon} setCatchedPokemon={setCatchedPropToPokemon} />}></Route>
           <Route exaxt path="/:name" render={() => <PokemonPage pokemons={pokemons} />}></Route>
-        <Redirect from="/" to="/Cards" />
-
+          <Redirect from="/" to="/Cards" />
         </Switch>
       </Router>}
     </>
